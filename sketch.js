@@ -124,7 +124,7 @@ ground2.x=ground.x+1000;
     }
   }
         console.log(ground.x);
-  text(mouseX+","+mouseY,mouseX, mouseY);
+  //text(mouseX+","+mouseY,mouseX, mouseY);
 
   if(score<10){
     text("HI " + HSTry + Math.floor(highScore) + "  0000"+Math.floor(score),width/2-100,60);
