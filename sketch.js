@@ -68,10 +68,11 @@ ground2.x=ground.x+1000;
   if(gameState==PLAY){
      score=score+rate;
      gameOver.visible=false;
-     if((keyDown("up")  && trex.y>=height-100)|| (touches.length>1 && trex.y>=height-80) ){
+     if((keyDown("up")  && trex.y>=height-100)|| (touches.length>0 && trex.y>=height-100) ){
        trex.velocityY = -14;
        trex.changeAnimation("jump",trex_jump);
        jumpSound.play();
+       touches=[];
      } 
      restart.visible=false;
      trex.velocityY=trex.velocityY + 1;
@@ -112,7 +113,7 @@ ground2.x=ground.x+1000;
     cloudGroup.setVelocityXEach(0);              
     trex.changeAnimation("trex_collide",trex_collide);
     gameOver.visible=true;
-    if(mousePressedOver(restart) || touches.length>1){
+    if(mousePressedOver(restart) || touches.length>0){
       gameState=PLAY;
       touches=[];
       obstacleGroup.destroyEach();
@@ -121,7 +122,6 @@ ground2.x=ground.x+1000;
       rate=0.3;
       ground.velocityX=-10;
     }
-
   }
         console.log(ground.x);
   text(mouseX+","+mouseY,mouseX, mouseY);
@@ -161,11 +161,11 @@ function spawnCloud(){
   cloud.addImage("cloud",cloud_load);
   cloud.velocityX=-2;
   cloud.scale=0.2;
-  cloud.y=Math.round(random(30,height-100));
+  cloud.y=Math.round(random(30,height-200));
   // console.log(cloud.x);
   cloud.depth=trex.depth;
   trex.depth++;
-  cloud.lifetime=600;  
+  cloud.lifetime=width/cloud.velocityX;  
   cloudGroup.add(cloud);
   }
 
@@ -195,7 +195,7 @@ function spawnObstacle(){
         break;
     }
     
-    obstacle.lifetime=600;
+    obstacle.lifetime=width/obstacle.velocityX;
     obstacleGroup.add(obstacle);
   }
     
